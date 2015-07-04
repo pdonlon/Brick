@@ -18,6 +18,7 @@ public class Game extends JFrame implements ActionListener, KeyListener, MouseLi
 	GamePanel jpan = new GamePanel();
 	static int height = 750;
 	static int width = 750;
+	static int statusBarHeight;
 	boolean gameOver = false;
 	Thread paintThread;
 	Thread ballThread;
@@ -40,7 +41,7 @@ public class Game extends JFrame implements ActionListener, KeyListener, MouseLi
 		this.setSize(height,width);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.setResizable(false);
-
+		statusBarHeight = getInsets().top;
 		this.addKeyListener(this);
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);

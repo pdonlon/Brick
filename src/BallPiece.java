@@ -64,7 +64,7 @@ public class BallPiece extends Piece{
 	
 	public boolean wallCollision(int xDes, int yDes)
 	{		
-		if((xDes+radius*2 > Game.width || xDes < 0) || (yDes+radius*2 > Game.height || yDes < 0)) //if x or y is out of bounds
+		if((xDes+radius*2 > Game.width || xDes < 0) || (yDes+radius*2 > Game.height-Game.statusBarHeight || yDes < 0)) //if x or y is out of bounds
 			return true;	
 		else
 			return false;
