@@ -26,7 +26,7 @@ public class Field {
 
 	public void spawnBall(int x, int y) //TODO put in direction
 	{
-		ball = new BallPiece(x,y, 18,3);
+		ball = new BallPiece(x,y, 18,3,300);
 	}
 	
 	public void initializeBricks()
@@ -63,7 +63,7 @@ public class Field {
 			bar.setX(xDes);
 			
 	}
-	
+
 	public void play()
 	{
 		Thread b = new Thread( new Runnable(){
@@ -82,7 +82,7 @@ public class Field {
 
 		b.start();
 	}
-	
+
 	public void paintField(Graphics g) 
 	{
 		for(BrickPiece b: brickList)

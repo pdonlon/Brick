@@ -19,20 +19,21 @@ public class Game extends JFrame implements ActionListener, KeyListener, MouseLi
 	static int height = 750;
 	static int width = 750;
 	boolean gameOver = false;
-	
+	Thread paintThread;
+	Thread ballThread;
+
 	public static void main(String[] args) throws InterruptedException {
 
 		Game game = new Game();	
 	}
-	
+
 	public Game() throws InterruptedException
 	{
 		super("Brick");
 
 		field = new Field();
 		field.initializeGame();
-		
-		
+
 		this.pack();
 		this.add(jpan);
 		this.setTitle("Brick");
@@ -45,44 +46,77 @@ public class Game extends JFrame implements ActionListener, KeyListener, MouseLi
 		this.addMouseMotionListener(this);
 		//setFocusable(true);
 		requestFocus();
-		
+
 		this.setVisible(true);
-		while(!gameOver)
-		{
-			moveBall();
-		}
+		playGame();
 	}
 	
-	public void moveBall() throws InterruptedException
+	public void moveBall()
 	{
-		Thread.sleep(2);
-		field.ball.move();
-		repaint();
-		//System.out.println("moved");
+		System.out.println(field.ball.getSpeed());
+		System.out.println(field.ball.getDirection());
+		ballThread = new Thread( new Runnable()
+		{
+			public void run(){
+				while(true)
+				{
+				field.ball.move();
+					try {
+						
+						Thread.sleep(1000/field.ball.getSpeed()); //speed per second
+					} catch(InterruptedException ex) {
+						Thread.currentThread().interrupt();
+					}
+				}
+			}
+		});
+
+		ballThread.start();
+	}
+	
+	public void playGame()
+	{
+		moveBall();
+		paintGame(1000);
+	}
+	
+	public void paintGame(final int framesPerSecond) //TODO later take variable to check if need to paint game or not
+	{
+		paintThread = new Thread( new Runnable(){
+			public void run(){
+				while(true)
+				{
+					try {
+						Thread.sleep(1000/framesPerSecond);
+					} catch(InterruptedException ex) {
+						Thread.currentThread().interrupt();
+					}
+					repaint();
+				}
+			}
+		});
+
+		paintThread.start();
 	}
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	public class GamePanel extends JPanel{
@@ -98,21 +132,18 @@ public class Game extends JFrame implements ActionListener, KeyListener, MouseLi
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		field.moveBar(e.getX());
 
+		field.moveBar(e.getX());
 	}
 
 	@Override
@@ -129,13 +160,13 @@ public class Game extends JFrame implements ActionListener, KeyListener, MouseLi
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		field.moveBar(e.getX());
 
+		field.moveBar(e.getX());
 	}
-	
+
 }

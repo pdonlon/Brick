@@ -3,17 +3,19 @@ public class BallPiece extends Piece{
 
 	int radius;
 	int direction;
+	int speed;
 
 	int[][] allDirections = new int[][]{{-1,-1},{1,-1},{1,1},{-1,1}};
-	
+
 	//1 2 quadrants for directions
 	//3 4
-	
-	public BallPiece(int x, int y, int radius, int direction) {
+
+	public BallPiece(int x, int y, int radius, int direction, int speed) {
 		super(x, y);
 
 		this.radius = radius;
 		this.direction = direction;
+		this.speed = speed;
 	}
 
 	public int getRadius()
@@ -29,6 +31,16 @@ public class BallPiece extends Piece{
 	public void setDirection(int direction)
 	{
 		this.direction = direction;
+	}
+	
+	public int getSpeed()
+	{
+		return speed;
+	}
+	
+	public void setSpeed(int speed)
+	{
+		this.speed = speed;
 	}
 	
 	public void move()
