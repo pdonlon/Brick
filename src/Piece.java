@@ -2,7 +2,7 @@
 public class Piece {
 
 	//contrusctor includes location x and y, what kind of piece it is
-	
+
 	int x;
 	int y;
 
@@ -23,5 +23,4 @@ public class Piece {
 	}
 
 	//paint by going through array list of bricks that are still left and then print the location of bar and ball
-
 }

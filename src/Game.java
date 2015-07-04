@@ -21,7 +21,6 @@ public class Game extends JFrame implements ActionListener, KeyListener, MouseLi
 	static int statusBarHeight;
 	boolean gameOver = false;
 	Thread paintThread;
-	Thread ballThread;
 
 	public static void main(String[] args) throws InterruptedException {
 
@@ -33,7 +32,6 @@ public class Game extends JFrame implements ActionListener, KeyListener, MouseLi
 		super("Brick");
 
 		field = new Field();
-		field.initializeGame();
 
 		this.pack();
 		this.add(jpan);
@@ -49,35 +47,12 @@ public class Game extends JFrame implements ActionListener, KeyListener, MouseLi
 		requestFocus();
 
 		this.setVisible(true);
+		field.initializeGame();
 		playGame();
-	}
-	
-	public void moveBall()
-	{
-		System.out.println(field.ball.getSpeed());
-		System.out.println(field.ball.getDirection());
-		ballThread = new Thread( new Runnable()
-		{
-			public void run(){
-				while(true)
-				{
-				field.ball.move();
-					try {
-						
-						Thread.sleep(1000/field.ball.getSpeed()); //speed per second
-					} catch(InterruptedException ex) {
-						Thread.currentThread().interrupt();
-					}
-				}
-			}
-		});
-
-		ballThread.start();
 	}
 	
 	public void playGame()
 	{
-		moveBall();
 		paintGame(1000);
 	}
 	

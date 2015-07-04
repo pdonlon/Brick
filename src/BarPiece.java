@@ -10,10 +10,10 @@ public class BarPiece extends Piece{
 	{
 		x = xDes;
 	}
-	
+
 	public void setX(int x)
 	{
 		this.x = x;
 	}
-	
+
 }
