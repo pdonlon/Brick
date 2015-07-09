@@ -63,6 +63,9 @@ public class BallPiece extends Piece{
 
 	public void bounce()//takes direction returns opposite direction (also should check what it's bouncing off of - bar should have different behaviors)
 	{
+		x += (-1)*(allDirections[direction][0])*speed;
+		y += (-1)*(allDirections[direction][1])*speed;
+		
 		if(direction<3)
 			direction++;
 		else
