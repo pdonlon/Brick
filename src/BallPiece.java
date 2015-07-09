@@ -9,9 +9,9 @@ public class BallPiece extends Piece{
 	int direction;
 	int speed;
 
-	static BallPiece normalBall = new BallPiece(Game.width/2,(Game.height*3)/4,18,3,300);
-	static BallPiece bigBall = new BallPiece(Game.width/2,(Game.height*3)/4,36,3,200);
-	static BallPiece smallBall = new BallPiece(Game.width/2,(Game.height*3)/4,9,3,400);
+	static BallPiece normalBall = new BallPiece(Game.width/2,(Game.height*3)/4,18,3,10);
+	static BallPiece bigBall = new BallPiece(Game.width/2,(Game.height*3)/4,36,3,7);
+	static BallPiece smallBall = new BallPiece(Game.width/2,(Game.height*3)/4,9,3,13);
 
 	static BallPiece[] ballArray = new BallPiece[]{normalBall, bigBall, smallBall};
 	
@@ -55,8 +55,8 @@ public class BallPiece extends Piece{
 
 	public void move()
 	{
-		x = x+allDirections[direction][0];
-		y = y+allDirections[direction][1];
+		x = x+(allDirections[direction][0])*speed;
+		y = y+(allDirections[direction][1])*speed;
 	}
 
 	//yDes+radius*2 > Game.height-Game.statusBarHeight

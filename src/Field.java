@@ -24,7 +24,7 @@ public class Field {
 	public void initializeGame()
 	{
 		initializeBricks();
-		spawnBall(Game.width/2,(Game.height*3)/4,18,3,300);
+		spawnBall(Game.width/2,(Game.height*3)/4,18,3,10); //TODO fix speed
 		bar = new BarPiece(Game.width/2 - (barWidth/2),(Game.height*7)/8);
 	}
 
@@ -82,7 +82,7 @@ public class Field {
 				{
 					try {
 
-						Thread.sleep(1000/ball.getSpeed()); //speed per second
+						Thread.sleep(1000/60); //speed per second
 					} catch(InterruptedException ex) {
 						Thread.currentThread().interrupt();
 					}
