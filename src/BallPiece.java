@@ -7,7 +7,8 @@ public class BallPiece extends Piece{
 
 	int radius;
 	int direction;
-	int speed;
+	int speedX;
+	int speedY;
 
 	static BallPiece normalBall = new BallPiece(Game.width/2,(Game.height*3)/4,18,3,10);
 	static BallPiece bigBall = new BallPiece(Game.width/2,(Game.height*3)/4,36,3,7);
@@ -25,7 +26,8 @@ public class BallPiece extends Piece{
 
 		this.radius = radius;
 		this.direction = direction;
-		this.speed = speed;
+		speedX = speed;
+		speedY = speed;
 	}
 
 	public int getRadius()
@@ -43,20 +45,30 @@ public class BallPiece extends Piece{
 		this.direction = direction;
 	}
 
-	public int getSpeed()
+	public int getSpeedX()
 	{
-		return speed;
+		return speedX;
 	}
 
-	public void setSpeed(int speed)
+	public void setSpeedX(int speed)
 	{
-		this.speed = speed;
+		speedX = speed;
+	}
+	
+	public int getSpeedY()
+	{
+		return speedY;
+	}
+	
+	public void setSpeedY(int speed)
+	{
+		speedY = speed;
 	}
 
 	public void move()
 	{
-		x = x+(allDirections[direction][0])*speed;
-		y = y+(allDirections[direction][1])*speed;
+		x = x+(allDirections[direction][0])*speedX;
+		y = y+(allDirections[direction][1])*speedY;
 	}
 
 	//yDes+radius*2 > Game.height-Game.statusBarHeight
@@ -64,9 +76,9 @@ public class BallPiece extends Piece{
 	public void bounce(boolean xOut, boolean yOut)//takes direction returns opposite direction (also should check what it's bouncing off of - bar should have different behaviors)
 	{
 		if(xOut)
-			x += (-1)*(allDirections[direction][0])*speed;
+			x += (-1)*speedX;
 		if(yOut)
-			y += (-1)*(allDirections[direction][1])*speed;
+			y += (-1)*speedY;
 		
 		if(direction<3)
 			direction++;

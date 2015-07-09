@@ -41,14 +41,15 @@ public class Field {
 		ball.setY(BallPiece.ballArray[ballType].getY());
 		ball.setRadius(BallPiece.ballArray[ballType].getRadius());
 		ball.setDirection(BallPiece.ballArray[ballType].getDirection());
-		ball.setSpeed(BallPiece.ballArray[ballType].getSpeed());
+		ball.setSpeedX(BallPiece.ballArray[ballType].getSpeedX());
+		ball.setSpeedY(BallPiece.ballArray[ballType].getSpeedX());
 	}
 	
 	public void checkCollision()
 	{		
 		ball.bounce(wallCollision()[0],wallCollision()[1]); //regular bounce
-//		else if(barCollision())
-//			ball.bounce();
+
+		ball.bounce(barCollision()[0],barCollision()[1]);
 	}
 
 	public Boolean[] wallCollision()
@@ -58,17 +59,17 @@ public class Field {
 		return collisions; //if x or y is out of bounds
 	}
 	
-	public boolean barCollision()
+	public Boolean[] barCollision()
 	{			
-		if(ball.getX()+ball.getRadius()*2 >= bar.getX()-barWidth/2 && ball.getX() <= bar.getX()+barWidth/2
-				&& ball.getY()+ball.getRadius()*2 >= bar.getY() && ball.getY() <= bar.getY()+barHeight)
-			return true;
-		else if (ball.getY()+ball.getRadius()*2 >= Game.height-Game.statusBarHeight)
+		Boolean [] collisions = new Boolean[] {(ball.getX()+ball.getRadius()*2 >= bar.getX()-barWidth/2 && ball.getX() <= bar.getX()+barWidth/2),
+				ball.getY()+ball.getRadius()*2 >= bar.getY() && ball.getY() <= bar.getY()+barHeight};
+	
+		if(!collisions[0] && !collisions[1])
 		{
 			//spawnBall(Game.width/2,(Game.height*3)/4,18,3,300);
 			resetBall((int) (Math.random()*BallPiece.ballArray.length));
 		}
-		return false;
+		return collisions;
 	}
 
 	public void moveBall()
