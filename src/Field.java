@@ -45,26 +45,29 @@ public class Field {
 	}
 	
 	public void checkCollision()
-	{		
-		ball.bounce(wallCollision()[0],wallCollision()[1]); //regular bounce
-
-		ball.bounce(barCollision()[0],barCollision()[1]);
+	{	
+		boolean[] temp1 = wallCollision();
+		boolean[] temp2 = barCollision();
+		
+		boolean[] temp3 = { temp1[0] || temp2[0], temp1[1] || temp2[1] };
+		
+		ball.bounce(temp3[0],temp3[1]); //regular bounce
 	}
 
-	public Boolean[] wallCollision()
+	public boolean[] wallCollision()
 	{	
-		Boolean [] collisions = new Boolean[] {(ball.getX()+ball.getRadius()*2 >= Game.width || ball.getX() <= 0),(ball.getY() <= 0)};
+		boolean [] collisions = new boolean[] {(ball.getX()+ball.getRadius()*2 >= Game.width || ball.getX() <= 0),(ball.getY() <= 0)};
 		
 		return collisions; //if x or y is out of bounds
 	}
 	
-	public Boolean[] barCollision()
+	public boolean[] barCollision()
 	{			
-		Boolean [] collisions = new Boolean[] {false,
+		boolean [] collisions = new boolean[] {false,
 				(ball.getX()+ball.getRadius()*2 >= bar.getX()-barWidth/2 && ball.getX() <= bar.getX()+barWidth/2
 				&& ball.getY()+ball.getRadius()*2 >= bar.getY() && ball.getY() <= bar.getY()+barHeight)};
 	
-		if(!collisions[0] && !collisions[1])
+		if(ball.getY()+ball.getRadius()*2 >= Game.height)
 		{
 			//spawnBall(Game.width/2,(Game.height*3)/4,18,3,300);
 			resetBall((int) (Math.random()*BallPiece.ballArray.length));
