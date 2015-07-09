@@ -6,13 +6,12 @@ import java.util.Observer;
 public class BallPiece extends Piece{
 
 	int radius;
-	int direction;
 	int speedX;
 	int speedY;
 
-	static BallPiece normalBall = new BallPiece(Game.width/2,(Game.height*3)/4,18,3,10);
-	static BallPiece bigBall = new BallPiece(Game.width/2,(Game.height*3)/4,36,3,7);
-	static BallPiece smallBall = new BallPiece(Game.width/2,(Game.height*3)/4,9,3,13);
+	static BallPiece normalBall = new BallPiece(Game.width/2,(Game.height*3)/4,18,10);
+	static BallPiece bigBall = new BallPiece(Game.width/2,(Game.height*3)/4,36,7);
+	static BallPiece smallBall = new BallPiece(Game.width/2,(Game.height*3)/4,9,13);
 
 	static BallPiece[] ballArray = new BallPiece[]{normalBall, bigBall, smallBall};
 	
@@ -21,11 +20,10 @@ public class BallPiece extends Piece{
 	//1 2 quadrants for directions
 	//3 4
 
-	public BallPiece(int x, int y, int radius, int direction, int speed) {
+	public BallPiece(int x, int y, int radius, int speed) {
 		super(x, y);
 
 		this.radius = radius;
-		this.direction = direction;
 		speedX = speed;
 		speedY = speed;
 	}
@@ -33,16 +31,6 @@ public class BallPiece extends Piece{
 	public int getRadius()
 	{
 		return radius;
-	}
-
-	public int getDirection()
-	{
-		return direction;
-	}
-
-	public void setDirection(int direction)
-	{
-		this.direction = direction;
 	}
 
 	public int getSpeedX()
@@ -67,8 +55,8 @@ public class BallPiece extends Piece{
 
 	public void move()
 	{
-		x = x+(allDirections[direction][0])*speedX;
-		y = y+(allDirections[direction][1])*speedY;
+		x = x+(-1)*speedX;
+		y = y+(-1)*speedY;
 	}
 
 	//yDes+radius*2 > Game.height-Game.statusBarHeight
@@ -79,11 +67,6 @@ public class BallPiece extends Piece{
 			x += (-1)*speedX;
 		if(yOut)
 			y += (-1)*speedY;
-		
-		if(direction<3)
-			direction++;
-		else
-			direction = 0;
 	}
 
 	public void setX(int x)

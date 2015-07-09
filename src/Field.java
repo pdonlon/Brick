@@ -13,7 +13,7 @@ public class Field {
 	Thread ballMoveThread;
 	Thread ballCheckThread;
 
-	BallPiece normalBall = new BallPiece(Game.width/2,(Game.height*3)/4,18,3,300); //TODO make array of ball objects
+	BallPiece normalBall = new BallPiece(Game.width/2,(Game.height*3)/4,18,300); //TODO make array of ball objects
 
 	int brickWidth = ((Game.width-((numberOfBricks+1)*10)) / numberOfBricks);
 	int brickHeight = brickWidth/3;
@@ -24,13 +24,13 @@ public class Field {
 	public void initializeGame()
 	{
 		initializeBricks();
-		spawnBall(Game.width/2,(Game.height*3)/4,18,3,10); //TODO fix speed
+		spawnBall(Game.width/2,(Game.height*3)/4,18,10); //TODO fix speed
 		bar = new BarPiece(Game.width/2 - (barWidth/2),(Game.height*7)/8);
 	}
 
-	public void spawnBall(int x, int y, int radius, int direction, int speed) //TODO put in direction
+	public void spawnBall(int x, int y, int radius, int speed) //TODO put in direction
 	{		
-		ball = new BallPiece(x,y, radius, direction, speed);
+		ball = new BallPiece(x,y, radius, speed);
 		moveBall();
 	}
 
@@ -40,7 +40,6 @@ public class Field {
 		ball.setX(BallPiece.ballArray[ballType].getX());
 		ball.setY(BallPiece.ballArray[ballType].getY());
 		ball.setRadius(BallPiece.ballArray[ballType].getRadius());
-		ball.setDirection(BallPiece.ballArray[ballType].getDirection());
 		ball.setSpeedX(BallPiece.ballArray[ballType].getSpeedX());
 		ball.setSpeedY(BallPiece.ballArray[ballType].getSpeedX());
 	}
@@ -61,8 +60,9 @@ public class Field {
 	
 	public Boolean[] barCollision()
 	{			
-		Boolean [] collisions = new Boolean[] {(ball.getX()+ball.getRadius()*2 >= bar.getX()-barWidth/2 && ball.getX() <= bar.getX()+barWidth/2),
-				ball.getY()+ball.getRadius()*2 >= bar.getY() && ball.getY() <= bar.getY()+barHeight};
+		Boolean [] collisions = new Boolean[] {false,
+				(ball.getX()+ball.getRadius()*2 >= bar.getX()-barWidth/2 && ball.getX() <= bar.getX()+barWidth/2
+				&& ball.getY()+ball.getRadius()*2 >= bar.getY() && ball.getY() <= bar.getY()+barHeight)};
 	
 		if(!collisions[0] && !collisions[1])
 		{
