@@ -46,18 +46,16 @@ public class Field {
 	
 	public void checkCollision()
 	{		
-		if(wallCollision())
-			ball.bounce(); //regular bounce
-		else if(barCollision())
-			ball.bounce();
+		ball.bounce(wallCollision()[0],wallCollision()[1]); //regular bounce
+//		else if(barCollision())
+//			ball.bounce();
 	}
 
-	public boolean wallCollision()
-	{		
-		if((ball.getX()+ball.getRadius()*2 >= Game.width || ball.getX() <= 0) || (ball.getY() <= 0)) //if x or y is out of bounds
-			return true;
-		else
-			return false;
+	public Boolean[] wallCollision()
+	{	
+		Boolean [] collisions = new Boolean[] {(ball.getX()+ball.getRadius()*2 >= Game.width || ball.getX() <= 0),(ball.getY() <= 0)};
+		
+		return collisions; //if x or y is out of bounds
 	}
 	
 	public boolean barCollision()

@@ -61,10 +61,12 @@ public class BallPiece extends Piece{
 
 	//yDes+radius*2 > Game.height-Game.statusBarHeight
 
-	public void bounce()//takes direction returns opposite direction (also should check what it's bouncing off of - bar should have different behaviors)
+	public void bounce(boolean xOut, boolean yOut)//takes direction returns opposite direction (also should check what it's bouncing off of - bar should have different behaviors)
 	{
-		x += (-1)*(allDirections[direction][0])*speed;
-		y += (-1)*(allDirections[direction][1])*speed;
+		if(xOut)
+			x += (-1)*(allDirections[direction][0])*speed;
+		if(yOut)
+			y += (-1)*(allDirections[direction][1])*speed;
 		
 		if(direction<3)
 			direction++;
